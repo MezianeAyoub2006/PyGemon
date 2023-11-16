@@ -5,6 +5,7 @@ class Object:
         self.is_player = is_player
         self.z_pos = z_pos
         self.erased = erased
+        self.tags = []
     def update(self):
         pass
     def render(self):

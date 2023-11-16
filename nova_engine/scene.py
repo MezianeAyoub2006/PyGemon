@@ -100,6 +100,7 @@ class Scene:
 
         for z_pos_ in self.z_positions:
             flt = filter(lambda x: x.z_pos == z_pos_, self.attached_objects)
+            
             if z_pos_ in map(lambda x: x.z_pos, self.attached_objects):
                 for object in flt:
                     if not self.game.freeze and self.transition_timer == 0 : 
@@ -117,6 +118,9 @@ class Scene:
         
         for i in range(len(self.layers)):
             self.layers[i] = dict(filter(lambda item: not item[1].kill, self.layers[i].items()))
+
+        if self.game.z_pos_refresh:
+            self.z_positions = sorted(set(map(lambda x: x.z_pos, self.attached_objects)).union(set(self.layers_z_pos.keys())))
 
         self.attached_objects = list(filter(lambda x: x.erased == False, self.attached_objects))
     
@@ -243,7 +247,12 @@ class Scene:
         self.attached_objects.append(object)
         self.z_positions = sorted(set(map(lambda x: x.z_pos, self.attached_objects)).union(set(self.layers_z_pos.keys())))
         object.scene_init()
+
+    def get_size(self):
+        return self.size
        
+    def get_tile_size(self):
+        return self.tile_size
 
 class Scenes:
     def __init__(self, game, scenes_data):

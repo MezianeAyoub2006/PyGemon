@@ -9,7 +9,7 @@ class GameContext:
         """
         ...
     
-    def __init__(self, resolution, flags=0, vsync=False) -> None:
+    def __init__(self, resolution, flags=0, vsync=False, z_pos_refresh=False) -> None:
         """
         Contexte de jeu Nova Engine.
         """

@@ -37,10 +37,14 @@ class Entity:
         self.updated = False
         self.z_pos = 1
         self.erased = False
+        self.tags = []
         self.collisions = {'up': [], 'down': [], 'right': [], 'left': []}
     
     def rect(self):
         return pygame.Rect(self.pos[0] + self.offset[0], self.pos[1] + self.offset[1], self.size[0], self.size[1])
+    
+    def scene_init(self):
+        pass
 
     def debug_rect(self, color):
         image = pygame.Surface((self.size[0], self.size[1]))

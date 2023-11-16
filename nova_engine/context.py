@@ -7,7 +7,7 @@ from nova_engine.utils import *
 pygame.init()
 
 class GameContext:
-    def __init__(self, resolution, flags=0, vsync=False):
+    def __init__(self, resolution, flags=0, vsync=False, z_pos_refresh=True):
         self.fullscreen = False      
         self.screen = pygame.display.set_mode(resolution, flags, vsync=vsync)
 
@@ -20,6 +20,7 @@ class GameContext:
         self.fps = 1000
         self.camera = [0, 0]
         self.scroll_ = [0, 0]
+        self.z_pos_refresh = z_pos_refresh
 
         self.fonts = {}
 

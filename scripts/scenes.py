@@ -14,7 +14,7 @@ SCENES = [
 
     {
         "scene_name" : "test",
-        "world_limits" : [],
+        "world_limits" : ["left", "right", "up", "down"],
         "tile_size" : 32,
         "player" : 0,
         "up_transition" : {"scene" : "test"},
