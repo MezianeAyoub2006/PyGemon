@@ -1,0 +1,4 @@
+import pygame
+
+SCENESWITCH = pygame.USEREVENT + 1
+TRANSITIONEND = SCENESWITCH + 1

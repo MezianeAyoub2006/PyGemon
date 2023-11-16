@@ -1,0 +1,53 @@
+<Gestionnaire des objectifs crée au début du projet>
+
+Général 
+    [X] ~~Séparer le scrolling en X et en Y~~
+    [X] ~~Pause~~
+    [X] ~~Sytème textuel~~
+    [X] ~~Systèmes de parallaxe~~
+    [X] ~~z_draw et z_render~~
+    [X] ~~Fix la vsync / les paramètres écran qui ne marchent pas~~
+    [X] ~~Implémenter correctement le système de Z-Pos~~
+    [ ] Implémenter le ShaderDisplay
+    [ ] Raycasting
+
+Transitions
+    [X] ~~Transitions built-in~~
+    [X] ~~Personalisables~~
+
+Interface
+    [ ] Bouttons
+    [ ] Cases à cocher
+    [ ] Barre de textes
+    [ ] Liste d'éléments scrollables
+    [ ] Effet smooth dans les bouttons (et les elements d'UI)
+
+Evenements 
+    [X] ~~SCENESWITCH~~
+    [ ] STOPSCROLL
+    [ ] STARTSCROLL
+
+Tilemaps
+    [X] ~~Tiles animées~~
+    [X] ~~Possibilité de remplacer les tiles d'un ID par un object custom~~
+    [X] ~~Fonction pour ajouter dynamiquement des tiles animées~~
+    [X] ~~Donner la possibilité aux tile physiques de collision que d'un sens~~
+    [ ] Dissocier les rects et images des Tiles de la scène (les rendre indépendantes, retirer le self.tileset[tile.id])
+
+Entitées 
+    [ ] Entitées solides
+    [ ] Sytème de collision de masque
+    [ ] Régler le problème des rectangles trop gros qui ne collisionnent pas avec toutes les tiles (NEIGHBOOR_OFFSETS)
+    [ ] Dissocier le joueur des scènes (enlever is_player, game.player, etc)
+    [ ] Faire un système de continuité dans Entity.collisions (fix le [] "left" [] "left" etc)
+    [ ] Animation vectorielle de corps
+
+Scènes
+    [X] ~~Fix le décalage de la caméra lors des transitions~~
+    [X] ~~Sytème de switch entre les scènes~~
+    [X] ~~Fix les transitions à droite~~
+    [X] ~~Possibité de lier des objets aux scènes (Entités, Eléments d'UI, Objets personalisés, etc)~~
+    [X] ~~Supprimmer les 'Upper' et remplacer par la Z_pos~~
+    [X] ~~Ajouter plusieurs directions dans le world_limit~~
+    [ ] Fix les collisions dans les interstices entre les scènes
+    [ ] Génération procédurale de terrains et de scènes (pourquoi pas rogue like)
