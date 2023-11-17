@@ -21,7 +21,6 @@ SCENES = [
         "background_color" : [0, 0, 0],
         "map_filepath" : "data/maps/test.json",
         "tileset" : "main_tileset",
-        "invisible_layers" : ["inv"],
         "physical_layers" : ["physic", "inv"],
         "layers_z" : {"upper" : 3, "physic" : 1, "background" : 0, "inv" : -10, '_': 0.3} 
     },
@@ -34,9 +33,8 @@ SCENES = [
         "up_transition" : {"scene" : "test"},
         "background_color" : [0, 0, 0],
         "map_filepath" : "data/maps/test_.json",
-        "invisible_layers" : ["Invisible"],
         "tileset" : "main_tileset",
         "physical_layers" : ["collision", "Invisible"],
-        "layers_z" : {"Upper layer" : 3, "collision" : 1, "Background" : 0, 'sur back': 0.3, "Invisible" : 10} 
+        "layers_z" : {"Upper layer" : 3, "collision" : 1, "Background" : 0, 'sur back': 0.3, "Invisible" : -10} 
     }
 ]
