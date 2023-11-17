@@ -1,5 +1,6 @@
 import nova_engine as nova, pygame, math
 
+#Fonction qui divise une liste en n listes de count éléments (ex: l_slice([1,2,2,7,1,5,3], 3) renvoie [[1,2,2], [7,1,5], [3]])
 def l_slice(chaine, count):
     if len(chaine) == count:
         return [chaine]
@@ -17,8 +18,7 @@ def l_slice(chaine, count):
         rtrn.append(l)
     return rtrn
 
-
-
+#Système textuel
 class TextBox(nova.Object):
     def __init__(self, text, game):
         nova.Object.__init__(self, game, (0,0), z_pos=10)

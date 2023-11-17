@@ -18,7 +18,7 @@ class Player(nova.Entity, nova.Animated):
         self.game.scene.attach(Shadow(self.game, self))
 
     def update(self):
-        self.z_pos = (0.4/(self.game.scene.get_size()[1]*self.game.scene.get_tile_size()))*self.rect().bottom + 1.8
+        self.z_pos = (0.4/(self.game.scene.get_size()[1]*self.game.scene.get_tile_size()))*self.rect().bottom + 1.8 #Place la position z du joueur en fonction de sa position y (pour que si il est au dessus d'un pnj, il soit dessiné correctement)
         nova.Entity.update(self)
         self.stop = False
         keys = pygame.key.get_pressed()

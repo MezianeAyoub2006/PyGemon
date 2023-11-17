@@ -2,7 +2,7 @@ import nova_engine as nova, random, pygame
 
 from scripts.shadow import *
 
-
+#Classe représentant les Pnjs
 class Npc(nova.Entity, nova.Animated):
     def __init__(self, game, pos, sprite, config):
         nova.Entity.__init__(self, game, pos, [24, 16], [2, 15])
@@ -35,9 +35,10 @@ class Npc(nova.Entity, nova.Animated):
 
         if not self.moving:
             self.set_animation_cursor(0)
-        #self.basic_ai(2.5, 200, 100, 50)
+
         self.basic_ai(2.5, 200, 100, 50)
 
+    #Mouvement des pnjs
     def basic_ai(self, speed, moving_prb, turning_prb, stopping_prb):
         if random.randint(0, int(moving_prb*self.game.get_dt())) == 1:
             self.moving = not self.moving

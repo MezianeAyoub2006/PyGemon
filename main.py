@@ -17,6 +17,8 @@ c = ""
 
 def scene_links():
     game.scene.attach(game.player)
+
+    #Les warps sont ajoutés manuellement, c'est voué à changer
     game.scene.attach(Warp(game, [11,11], [1, 0.5], lambda : game.scene.attach(TextBox("Ma Maison.                                   (N'hésitez pas à passer dire bonjour)", game))))
     for i in range(10):
         game.scene.attach(Npc(game, [15, 12], 'bird_keeper_sprite', {}))
@@ -45,17 +47,22 @@ def events():
             c += event.unicode
             if event.key == pygame.K_F11:
                 game.toggle_fullscreen()
+            
+            #code qui gère les cheat codes
             if event.key == pygame.K_LSHIFT:
                 if c == "debugmode":
                     game.DEBUG = not game.DEBUG
                 elif c.split(" ")[0] == "tp":
                     game.player.pos = [float(c.split(" ")[1]) * game.scene.get_tile_size(), float(c.split(" ")[2]) * game.scene.get_tile_size()]
                 c = ""
+
         if event.type == nova.SCENESWITCH:
             for object in game.scenes[event.scene].attached_objects:
                 if "npc" in object.tags:
+                    #On remet tous les pnjs à leur place de base par changement de map
                     object.pos = object.spawn.copy()
 
+#Affichage du debug mode
 def debug_mode():
     game.render_text(str(round(game.get_fps())), "main40", (30,30,30), (5,-3), True)
     game.render_text("DEBUG", "main40", (30,30,30), (5,325), True)
