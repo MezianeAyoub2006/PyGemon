@@ -57,15 +57,20 @@ class TextBox(nova.Object):
                 else:
                     self.erased = True
                     self.game.freeze = False
-            if self.c * 2 >= len(l_slice(list(self.text), 45)):
+            if self.c * 2 >= len(l_slice(list(self.text), 45)) or (self.count >= len(self.text) and pygame.key.get_pressed()[pygame.K_SPACE]):
                 self.remove = True
-            elif self.count + self.game.get_dt()/1.7 < 90: 
-                self.count += self.game.get_dt()/1.7
+            elif self.count + self.game.get_dt()/1.2 < 90: 
+                self.count += self.game.get_dt()/1.2
             elif pygame.key.get_pressed()[pygame.K_SPACE]:
-                    self.c += 1
+                    self.c += 1 
                     self.count = 0
+
             self.game.draw(self.game.get_assets()["textbox"], (70, 283 + 75 - self.kill_count*30))
             self.render_text(90 * self.c, 90 * self.c + math.floor(self.count))
+
+            if not self.count + self.game.get_dt()/1.2 < 90 or self.count >= len(self.text): 
+                self.game.draw(self.game.get_assets()["textcursor"], (535, 320 + 75 - self.kill_count*30))
+
         else:
             self.game.draw(self.game.get_assets()["textbox"], (70, 283 + self.begin_count*30))
             self.begin_count -= self.game.get_dt()/10

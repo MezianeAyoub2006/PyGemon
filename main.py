@@ -19,8 +19,10 @@ def scene_links():
     game.scene.attach(game.player)
 
     #Les warps sont ajoutés manuellement, c'est voué à changer
-    game.scene.attach(Warp(game, [11,11], [1, 0.5], lambda : game.scene.attach(TextBox("Ma Maison.                                   (N'hésitez pas à passer dire bonjour)", game))))
-    for i in range(10):
+    game.scene.attach(Warp(game, [11,11], [1, 0.5], lambda : game.scene.attach(TextBox("Ma Maison.                                   (N'hésitez pas à passer dire bonjour)", game)), lambda : game.player.dir == "up"))
+    game.scene.attach(Warp(game, [18,11], [1, 0.5], lambda : game.scene.attach(TextBox("Maison du rival.", game)), lambda : game.player.dir == "up"))
+    game.scene.attach(Warp(game, [18,3], [1, 0.5], lambda : game.scene.attach(TextBox("Route 101                                                                                 Assurer-vous d'avoir un pokemon à vos cotés  pour vous acompagner dans cette aventure.    Courage dresseur !", game)), lambda : game.player.dir == "up"))
+    for i in range(1):
         game.scene.attach(Npc(game, [15, 12], 'bird_keeper_sprite', {}))
 
 from scripts.res import *
@@ -66,7 +68,7 @@ def events():
 def debug_mode():
     game.render_text(str(round(game.get_fps())), "main40", (30,30,30), (5,-3), True)
     game.render_text("DEBUG", "main40", (30,30,30), (5,325), True)
-    game.render_text(f'{round(game.player.pos[0] / game.scene.get_tile_size(), 1)} | {round(game.player.pos[1] / game.scene.get_tile_size(), 1)}', "main40", (30,30,30), (480,-3), True)
+    game.render_text(f'{round(game.player.rect().center[0] / game.scene.get_tile_size(), 1)} | {round(game.player.rect().center[1] / game.scene.get_tile_size(), 1)}', "main40", (30,30,30), (480,-3), True)
 
 def loop():
     global tr
