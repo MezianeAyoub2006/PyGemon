@@ -23,6 +23,8 @@ def scene_links():
 
 from scripts.res import *
 
+"Va te faire enculer"
+
 def init():
     global tr
     game.load_assets(TILESETS | PLAYER_SPRITES)
