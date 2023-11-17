@@ -83,6 +83,7 @@ class Scene:
         self.left, self.right, self.up, self.down = [], [], [], []
         self.transition_timer = 0
         self.transition_ceil = 2
+        self.transition = None
         self.transition_data = None
         self.entity_block = False
         
