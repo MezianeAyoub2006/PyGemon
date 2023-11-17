@@ -34,8 +34,9 @@ SCENES = [
         "up_transition" : {"scene" : "test"},
         "background_color" : [0, 0, 0],
         "map_filepath" : "data/maps/test_.json",
+        "invisible_layers" : ["Invisible"],
         "tileset" : "main_tileset",
-        "physical_layers" : ["collision"],
-        "layers_z" : {"Upper layer" : 3, "collision" : 1, "Background" : 0, 'sur back': 0.3} 
+        "physical_layers" : ["collision", "Invisible"],
+        "layers_z" : {"Upper layer" : 3, "collision" : 1, "Background" : 0, 'sur back': 0.3, "Invisible" : 10} 
     }
 ]
