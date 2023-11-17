@@ -54,5 +54,7 @@ class Player(nova.Entity, nova.Animated):
         
     def render(self):
         self.flip_image(self.flip, False)
+        if self.game.DEBUG:
+            self.debug_rect((255,0,0))
         super().render()
 

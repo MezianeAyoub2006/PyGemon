@@ -94,6 +94,9 @@ class Scene:
             self.transition_timer = 0
             pygame.event.post(pygame.event.Event(TRANSITIONEND))
 
+        if self.game.z_pos_refresh:
+            self.z_positions = sorted(set(map(lambda x: x.z_pos, self.attached_objects)).union(set(self.layers_z_pos.keys())))
+
         self.game.screen.fill(tuple(self.color))
         for object in self.attached_objects:
             object.updated = False
@@ -119,10 +122,7 @@ class Scene:
         for i in range(len(self.layers)):
             self.layers[i] = dict(filter(lambda item: not item[1].kill, self.layers[i].items()))
 
-        if self.game.z_pos_refresh:
-            self.z_positions = sorted(set(map(lambda x: x.z_pos, self.attached_objects)).union(set(self.layers_z_pos.keys())))
-
-        self.attached_objects = list(filter(lambda x: x.erased == False, self.attached_objects))
+        self.attached_objects = list(filter(lambda x: not x.erased, self.attached_objects))
     
         
         

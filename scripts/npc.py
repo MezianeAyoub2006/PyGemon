@@ -1,4 +1,4 @@
-import nova_engine as nova, random
+import nova_engine as nova, random, pygame
 
 from scripts.shadow import *
 
@@ -59,4 +59,6 @@ class Npc(nova.Entity, nova.Animated):
             self.velocity = [0, 0]
 
     def render(self):
+        if self.game.DEBUG:
+            self.debug_rect((0,255,255))
         super().render()
