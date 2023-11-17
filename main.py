@@ -17,13 +17,11 @@ c = ""
 
 def scene_links():
     game.scene.attach(game.player)
-    game.scene.attach(Warp(game, [11,11], [1, 0.5], lambda : game.scene.attach(TextBox("Ma Maison.            (N'hésitez pas à passer dire bonjour)", game))))
+    game.scene.attach(Warp(game, [11,11], [1, 0.5], lambda : game.scene.attach(TextBox("Ma Maison.                                   (N'hésitez pas à passer dire bonjour)", game))))
     for i in range(10):
         game.scene.attach(Npc(game, [15, 12], 'bird_keeper_sprite', {}))
 
 from scripts.res import *
-
-"Va te faire enculer"
 
 def init():
     global tr
