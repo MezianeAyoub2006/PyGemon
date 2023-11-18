@@ -10,6 +10,7 @@ from scripts.shadow import *
 from scripts.npc import *
 from scripts.text import *
 from scripts.warp import *
+from scripts.objects import *
 
 game = nova.GameContext((640, 360), vsync=True, flags = pygame.SCALED | pygame.RESIZABLE)
 game.DEBUG = False
@@ -18,10 +19,8 @@ c = ""
 def scene_links():
     game.scene.attach(game.player)
 
-    #Les warps sont ajoutés manuellement, c'est voué à changer
-    game.scene.attach(Warp(game, [11,11], [1, 0.5], lambda : game.scene.attach(TextBox("Ma Maison.                                   (N'hésitez pas à passer dire bonjour)", game)), lambda : game.player.dir == "up"))
-    game.scene.attach(Warp(game, [18,11], [1, 0.5], lambda : game.scene.attach(TextBox("Maison du rival.", game)), lambda : game.player.dir == "up"))
-    game.scene.attach(Warp(game, [18,3], [1, 0.5], lambda : game.scene.attach(TextBox("Route 101                                                                                 Assurer-vous d'avoir un pokemon à vos cotés  pour vous acompagner dans cette aventure.    Courage dresseur !", game)), lambda : game.player.dir == "up"))
+    #Les warps sont ajoutés manuellement, c'est voué à changer  
+    link_defined_objects(game)
     for i in range(1):
         game.scene.attach(Npc(game, [15, 12], 'bird_keeper_sprite', {}))
 
@@ -34,6 +33,7 @@ def init():
     game.player = Player(game, [5, 5])
     game.switch_scene('test')
     game.load_font("data/fonts/main.ttf", "main", 30)
+    game.load_font("data/fonts/main.ttf", "main", 32)
     game.load_font("data/fonts/main.ttf", "main", 40)
     scene_links()
     tr = nova.fade_transition
@@ -66,9 +66,9 @@ def events():
 
 #Affichage du debug mode
 def debug_mode():
-    game.render_text(str(round(game.get_fps())), "main40", (30,30,30), (5,-3), True)
-    game.render_text("DEBUG", "main40", (30,30,30), (5,325), True)
-    game.render_text(f'{round(game.player.rect().center[0] / game.scene.get_tile_size(), 1)} | {round(game.player.rect().center[1] / game.scene.get_tile_size(), 1)}', "main40", (30,30,30), (480,-3), True)
+    game.render_text(str(round(game.get_fps())), "main30", (30,30,30), (5,-2), True)
+    game.render_text("DEBUG MODE", "main30", (30,30,30), (5,335), True)
+    game.render_text(f'{round(game.player.rect().center[0] / game.scene.get_tile_size(), 1)} | {round(game.player.rect().center[1] / game.scene.get_tile_size(), 1)}', "main30", (30,30,30), (490,-2), True)
 
 def loop():
     global tr

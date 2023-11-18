@@ -206,9 +206,131 @@
          "width":30,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":6,
+         "name":"obj",
+         "objects":[
+                {
+                 "height":69.3333333333333,
+                 "id":50,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"action",
+                         "type":"string",
+                         "value":"print(\"Inside Warp\")"
+                        }, 
+                        {
+                         "name":"condition",
+                         "type":"string",
+                         "value":"self.game.player.dir == \"up\" "
+                        }, 
+                        {
+                         "name":"direct",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"warp"
+                        }, 
+                        {
+                         "name":"volatile",
+                         "type":"bool",
+                         "value":false
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":72,
+                 "x":444,
+                 "y":281.333333333333
+                }, 
+                {
+                 "height":9.99996666666664,
+                 "id":53,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"action",
+                         "type":"string",
+                         "value":"print(\"Maison\")"
+                        }, 
+                        {
+                         "name":"condition",
+                         "type":"string",
+                         "value":"self.game.player.dir == \"left\" "
+                        }, 
+                        {
+                         "name":"direct",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"warp"
+                        }, 
+                        {
+                         "name":"volatile",
+                         "type":"bool",
+                         "value":false
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":33.3333333333333,
+                 "x":254,
+                 "y":348.000016666667
+                }, 
+                {
+                 "height":9.99997,
+                 "id":58,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"condition",
+                         "type":"string",
+                         "value":"self.game.player.dir == \"up\" "
+                        }, 
+                        {
+                         "name":"direct",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"text",
+                         "type":"string",
+                         "value":"Maison du rival."
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"textwarp"
+                        }, 
+                        {
+                         "name":"volatile",
+                         "type":"bool",
+                         "value":false
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":33.3333,
+                 "x":573.33335,
+                 "y":350.333348333333
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextlayerid":6,
- "nextobjectid":1,
+ "nextlayerid":7,
+ "nextobjectid":59,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.1",

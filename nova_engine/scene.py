@@ -58,13 +58,18 @@ def animated_tile(sequence, animation_speed, **arguments):
 def load_map(path):
     map_ = []
     layers = []
+    objects = []
     with open(path, 'r') as f:
         data = json.load(f)
         for layer in range(len(data['layers'])):
-            layers.append(data['layers'][layer]['name'])
-            layer_matrix = list_to_matrix(data['layers'][layer]['data'], data['width'])
-            map_.append({str(x)+';'+str(y) : Tile((x, y),layer_matrix[y][x]-1) for x in range(len(layer_matrix[0])) for y in range(len(layer_matrix)) if layer_matrix[y][x] != 0})
-    return [map_, [data['width'], data['height']], {i:j for i,j in enumerate(layers)}] 
+            if 'data' in data['layers'][layer]:
+                layers.append(data['layers'][layer]['name'])
+                layer_matrix = list_to_matrix(data['layers'][layer]['data'], data['width'])
+                map_.append({str(x)+';'+str(y) : Tile((x, y),layer_matrix[y][x]-1) for x in range(len(layer_matrix[0])) for y in range(len(layer_matrix)) if layer_matrix[y][x] != 0})
+            elif 'objects' in data['layers'][layer]:
+                for object in data['layers'][layer]['objects']:
+                    objects.append(object)
+    return [map_, [data['width'], data['height']], {i:j for i,j in enumerate(layers)}, objects] 
 
 def generate_screen_positions(tile_size, camera, screen_size):
     for x in range(int(camera[0] // tile_size), int((camera[0] + screen_size[0]) // tile_size + 1)):
@@ -271,6 +276,7 @@ class Scenes:
                 self.scenes[scene_name].is_map = True
                 self.scenes[scene_name].layers = map[0]
                 self.scenes[scene_name].size = map[1]
+                self.scenes[scene_name].objects = map[3]
                 self.scenes[scene_name].layer_names = map[2]
                 self.scenes[scene_name]._layer_names = {j: i for i, j in map[2].items()}
                 self.scenes[scene_name].tileset = game.assets[scene_data['tileset']]
