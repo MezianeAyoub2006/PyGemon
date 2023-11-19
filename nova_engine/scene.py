@@ -84,7 +84,7 @@ class Scene:
         self.tile_size = tile_size
         self.color = [0, 0, 0]
         self.attached_objects = []
-        self.PHYSICS_LAYERS, self.NORMAL_LAYERS, self.UPPER_LAYERS = [], [], []
+        self.PHYSICS_LAYERS, self.INVISIBLE_LAYERS = [], []
         self.left, self.right, self.up, self.down = [], [], [], []
         self.transition_timer = 0
         self.transition_ceil = 2
@@ -118,12 +118,13 @@ class Scene:
                     object.updated = True
             else:
                 layer = self.layers_z_pos[z_pos_]
-                for loc in generate_screen_positions(int(self.tile_size), (int(self.game.camera[0]), int(self.game.camera[1])), self.game.screen.get_size()):
-                    if loc in self.layers[self._layer_names[layer]]:
-                        tile = self.layers[self._layer_names[layer]][loc]
-                        tile.render(self)
-                        if not self.game.freeze:
-                            tile.update(self)
+                if not self._layer_names[layer] in self.INVISIBLE_LAYERS:
+                    for loc in generate_screen_positions(int(self.tile_size), (int(self.game.camera[0]), int(self.game.camera[1])), self.game.screen.get_size()):
+                        if loc in self.layers[self._layer_names[layer]]:
+                            tile = self.layers[self._layer_names[layer]][loc]
+                            tile.render(self)
+                            if not self.game.freeze:
+                                tile.update(self)
         
         for i in range(len(self.layers)):
             self.layers[i] = dict(filter(lambda item: not item[1].kill, self.layers[i].items()))
@@ -236,18 +237,19 @@ class Scene:
         self.transition_timer = 0.01
         return self.transition(self.game, self.transition_timer, self.transition_ceil)
 
-    def change_tile_type(self, tile_class, id):
-        if isinstance(id, int):
-            for i in range(len(self.layers)):
-                for tile in self.layers[i]:
-                    if self.layers[i][tile].id == id:
-                        self.layers[i][tile] = tile_class(self.layers[i][tile].pos, self.layers[i][tile].id)
-        elif isinstance(id, list) or isinstance(id, set) or isinstance(id, tuple):
-            for d in id:
+    def change_tile_type(self, tile_class, ids):
+        for id in ids:
+            if isinstance(id, int):
                 for i in range(len(self.layers)):
                     for tile in self.layers[i]:
-                        if self.layers[i][tile].id == d:
+                        if self.layers[i][tile].id == id:
                             self.layers[i][tile] = tile_class(self.layers[i][tile].pos, self.layers[i][tile].id)
+            elif isinstance(id, list) or isinstance(id, set) or isinstance(id, tuple):
+                for d in id:
+                    for i in range(len(self.layers)):
+                        for tile in self.layers[i]:
+                            if self.layers[i][tile].id == d:
+                                self.layers[i][tile] = tile_class(self.layers[i][tile].pos, self.layers[i][tile].id)
 
     def attach(self, object):
         self.attached_objects.append(object)
@@ -269,6 +271,7 @@ class Scenes:
             scene_name = scene_data['scene_name']
             self.numeric_scenes.append(scene_name)
             self.scenes[scene_name] = Scene(game, scene_data['tile_size'])
+            self.scenes[scene_name].name = scene_name
             if 'background_color' in scene_data:
                 self.scenes[scene_name].color = scene_data['background_color']
             if 'map_filepath' in scene_data:
@@ -280,7 +283,6 @@ class Scenes:
                 self.scenes[scene_name].layer_names = map[2]
                 self.scenes[scene_name]._layer_names = {j: i for i, j in map[2].items()}
                 self.scenes[scene_name].tileset = game.assets[scene_data['tileset']]
-                self.scenes[scene_name].NORMAL_LAYERS = [i for i in map[2].values()]
                 self.scenes[scene_name].layers_z_pos = {value : key for key, value in scene_data['layers_z'].items()}
                 self.scenes[scene_name].z_positions = self.scenes[scene_name].z_positions.union(self.scenes[scene_name].layers_z_pos)
             else:
@@ -289,9 +291,8 @@ class Scenes:
                 self.scenes[scene_name].layers = []
             if 'physical_layers' in scene_data:
                 self.scenes[scene_name].PHYSICS_LAYERS = scene_data['physical_layers']
-                for i in scene_data['physical_layers']:
-                    if i in self.scenes[scene_name].NORMAL_LAYERS:
-                        self.scenes[scene_name].NORMAL_LAYERS.remove(i)
+            if 'invisible_layers' in scene_data:
+                self.scenes[scene_name].INVISIBLE_LAYERS = scene_data['invisible_layers']
             if 'world_limits' in scene_data:
                 self.scenes[scene_name].world_limit = scene_data['world_limits']
             if 'left_transition' in scene_data:

@@ -11,33 +11,35 @@ from scripts.npc import *
 from scripts.text import *
 from scripts.warp import *
 from scripts.objects import *
+from scripts.path import *
 
-game = nova.GameContext((640, 360), vsync=True, flags = pygame.SCALED | pygame.RESIZABLE)
+game = nova.GameContext((480, 360), vsync=True, flags = pygame.SCALED | pygame.RESIZABLE)
 game.DEBUG = False
 c = ""
 
 def scene_links():
     game.scene.attach(game.player)
-
-    #Les warps sont ajoutés manuellement, c'est voué à changer  
     link_defined_objects(game)
-    for i in range(1):
-        game.scene.attach(Npc(game, [15, 12], 'bird_keeper_sprite', {}))
 
 from scripts.res import *
 
 def init():
-    global tr
     game.load_assets(TILESETS | PLAYER_SPRITES)
     game.load_scenes(SCENES)
-    game.player = Player(game, [5, 5])
-    game.switch_scene('test')
+
+    game.player = Player(game, [10, 10])
+
     game.load_font("data/fonts/main.ttf", "main", 30)
     game.load_font("data/fonts/main.ttf", "main", 32)
     game.load_font("data/fonts/main.ttf", "main", 40)
+
+
+    for scene in game.scenes:
+        scene.change_tile_type(Path, [464, 465, 466, 472, 473, 474, 480, 481, 482])
+
+    game.switch_scene('route_102')
     scene_links()
-    tr = nova.fade_transition
-    game.scene.set_transition_mode(tr, time=1)
+    print(game.scene.attached_objects)
 
 def events():
     global tr, c
@@ -73,6 +75,7 @@ def debug_mode():
 def loop():
     global tr
     events()
+    game.scene.set_transition_mode(nova.fade_transition, time=0)
     game.scene.render()
     game.set_caption("PyGamon Emerald")
     game.scroll(game.player.rect().center, False, 15)

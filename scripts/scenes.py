@@ -13,28 +13,41 @@ SCENES = [
     },
 
     {
-        "scene_name" : "test",
+        "scene_name" : "route_102",
         "world_limits" : ["left", "right", "up", "down"],
         "tile_size" : 32,
-        "player" : 0,
-        "down_transition" : {"scene" : "test_"},
+        "player" : 1,
         "background_color" : [0, 0, 0],
-        "map_filepath" : "data/maps/test.json",
+        "right_transition" : {"scene" : "bourg_en_vol"},
+        "map_filepath" : "data/maps/routes/r102.json",
         "tileset" : "main_tileset",
-        "physical_layers" : ["physic", "inv"],
-        "layers_z" : {"upper" : 3, "physic" : 1, "background" : 0, "inv" : -10, '_': 0.3} 
+        "invisible_layers" : ["inv"],
+        "physical_layers" : ["collision", "inv"],
+        "layers_z" : {"upper" : 3, "collision" : 1, "background" : 0, '_': 0.3, "__" : 1.3, "inv" : 10} 
     },
 
     {
-        "scene_name" : "test_",
+        "scene_name" : "route_103",
         "world_limits" : ["left", "right", "up", "down"],
         "tile_size" : 32,
-        "player" : 0,
-        "up_transition" : {"scene" : "test"},
+        "player" : 1,
         "background_color" : [0, 0, 0],
-        "map_filepath" : "data/maps/test_.json",
+        "map_filepath" : "data/maps/routes/r103.json",
         "tileset" : "main_tileset",
-        "physical_layers" : ["collision"],
-        "layers_z" : {"Upper layer" : 3, "collision" : 1, "Background" : 0, 'sur back': 0.3} 
-    }
+        "physical_layers" : ["collision", "inv"],
+        "layers_z" : {"upper" : 3, "collision" : 1, "background" : 0, '_': 0.3, "__" : 1.3, "inv" : 10,  "_upper" : 4} 
+    },
+
+    {
+        "scene_name" : "bourg_en_vol",
+        "world_limits" : ["left", "right", "up", "down"],
+        "tile_size" : 32,
+        "player" : 1,
+        "background_color" : [0, 0, 0],
+        "map_filepath" : "data/maps/villes/bourg-en-vol.json",
+        "tileset" : "main_tileset",
+        "left_transition" : {"scene" : "route_102"},
+        "physical_layers" : ["collision", "inv"],
+        "layers_z" : {"upper" : 3, "collision" : 1, "background" : 0, '_': 0.3, "__" : 1.3, "inv" : 10,  "_upper" : 4, "._":0.25} 
+    },
 ]

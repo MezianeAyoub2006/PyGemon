@@ -8,7 +8,6 @@ class Shadow(nova.Object):
         self.object = object
         self.offset_ = offset
     def update(self):
-        #On ajuste la position de l'ombre
         self.pos = [self.object.pos[0] - 10 + self.object.velocity[0] + self.offset_[0], self.object.pos[1] + self.object.velocity[1] - 1 + self.offset_[1]]
     def render(self):
         self.game.render(self.image, self.pos)

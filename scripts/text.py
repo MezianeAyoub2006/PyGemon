@@ -29,11 +29,13 @@ class TextBox(nova.Object):
         self.kill_count = 2.5
         self.remove = False
         self.begin_count = 2.5
+        self.click = False
+        self.click_count = 0
         self.game.freeze = True
 
     def render_text(self, begin,  lenght):
-        first_line = (78, 288 + 75 - self.kill_count*30)
-        second_line = (78, 315 + 75 - self.kill_count*30)
+        first_line = (78 - 64, 288 + 77 - self.kill_count*30)
+        second_line = (78 - 64, 315 + 77 - self.kill_count*30)
         txt = self.text[begin:lenght]
         txts = ["".join(i) for i in l_slice(list(txt), 45)]
         if len(txts) == 1:
@@ -50,6 +52,10 @@ class TextBox(nova.Object):
                 self.game.render_text(txts[self.c], "main30", (0,0,0), second_line)
 
     def render(self):
+        self.click_count += self.game.get_dt()/60
+        if self.click_count >= 0.3:
+            self.click_count = 0
+            self.click = not self.click
         if self.begin_count == 0:
             if self.remove :
                 if self.kill_count > 0:
@@ -65,14 +71,14 @@ class TextBox(nova.Object):
                     self.c += 1 
                     self.count = 0
 
-            self.game.draw(self.game.get_assets()["textbox"], (70, 283 + 75 - self.kill_count*30))
+            self.game.draw(self.game.get_assets()["textbox"], (70 - 64, 283 + 77 - self.kill_count*30))
             self.render_text(90 * self.c, 90 * self.c + math.floor(self.count))
 
             if not self.count + self.game.get_dt()/1.2 < 90 or self.count >= len(self.text): 
-                self.game.draw(self.game.get_assets()["textcursor"], (535, 320 + 75 - self.kill_count*30))
+                self.game.draw(self.game.get_assets()["textcursor"], (535 - 95, 320 + 77 - self.kill_count*30 - (2 if self.click else -2)))
 
         else:
-            self.game.draw(self.game.get_assets()["textbox"], (70, 283 + self.begin_count*30))
+            self.game.draw(self.game.get_assets()["textbox"], (70 - 64, 283 + 2 + self.begin_count*30))
             self.begin_count -= self.game.get_dt()/10
             if self.begin_count <= 0:
                 self.begin_count = 0

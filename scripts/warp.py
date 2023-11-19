@@ -22,7 +22,7 @@ class Warp(nova.Object):
                 if self.volatile:
                     self.erased = True
         if self.game.DEBUG:
-            if not eval(self.condition)(self):
+            if eval(self.condition)(self):
                 pygame.draw.rect(self.game.screen, (0,255,50), pygame.Rect((rect.left - self.game.camera[0]), (rect.top - self.game.camera[1]), (rect.w), (rect.h)))
             else:
                 pygame.draw.rect(self.game.screen, (255,255,0), pygame.Rect((rect.left - self.game.camera[0]), (rect.top - self.game.camera[1]), (rect.w), (rect.h)))

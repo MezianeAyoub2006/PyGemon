@@ -4,41 +4,41 @@ from scripts.shadow import *
 
 #Classe représentant les Pnjs
 class Npc(nova.Entity, nova.Animated):
-    def __init__(self, game, pos, sprite, config):
+    def __init__(self, game, pos, sprite, config, scene):
         nova.Entity.__init__(self, game, pos, [24, 16], [2, 15])
         nova.Animated.__init__(self, game.get_assets()[sprite])
         self.moving = False
+        self.name = ""
         self.dir = "up"
+        self.scene = scene
         self.set_animation(3)
         self.animate(1)
         self.z_pos = 2
         self.spawn = self.pos.copy()
+        self.config = config
         if self.tags == []:
             self.tags.append("npc")
 
     def scene_init(self):
-        self.game.scene.attach(Shadow(self.game, self, offset=[-8, -10]))
+        self.game.scenes[self.scene].attach(Shadow(self.game, self, offset=[-8, -10]))
     
     def update(self):
         self.z_pos = (0.4/(self.game.scene.get_size()[1]*self.game.scene.get_tile_size()))*self.rect().bottom + 1.8
         nova.Entity.update(self)
         if self.dir == "left" or self.dir == "up-left" or self.dir == "down-left":
-            self.set_animation(1)
+            self.set_animation(self.config[1])
         elif  self.dir == "right" or self.dir == "up-right" or self.dir == "down-right":
-            self.set_animation(2)
+            self.set_animation(self.config[2])
         elif self.dir == "up":
-            self.set_animation(3)
+            self.set_animation(self.config[3])
         elif self.dir == "down":
-            self.set_animation(0)
+            self.set_animation(self.config[0])
         
         self.animate(self.game.get_dt())
 
         if not self.moving:
             self.set_animation_cursor(0)
 
-        self.basic_ai(2.5, 200, 100, 50)
-
-    #Mouvement des pnjs
     def basic_ai(self, speed, moving_prb, turning_prb, stopping_prb):
         if random.randint(0, int(moving_prb*self.game.get_dt())) == 1:
             self.moving = not self.moving
@@ -63,3 +63,21 @@ class Npc(nova.Entity, nova.Animated):
         if self.game.DEBUG:
             self.debug_rect((0,255,255))
         super().render()
+
+class Npc0(Npc):
+    def __init__(self, game, pos, scene):
+        self.name = "Bird Keeper"
+        super().__init__(game, pos, 'bird_keeper_sprite', [0, 1, 2, 3], scene)
+        
+        
+    def update(self):
+        super().update()
+        self.basic_ai(2.5, 200, 100, 50)
+
+def npc_attach(game, scene, id, pos):
+    print(scene, id, pos)
+    match(id):
+        case 0:
+            game.scenes[scene].attach(Npc0(game, pos, scene))
+
+

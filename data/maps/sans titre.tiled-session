@@ -1,0 +1,81 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "routes/r102.json",
+    "expandedProjectPaths": [
+        "source"
+    ],
+    "file.lastUsedOpenFilter": "Tous les Fichiers (*)",
+    "fileStates": {
+        "C:/Users/Karima Meziane/Desktop/C & C++/Raylib/main.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Pictures/Tileset for pokemon/main.tsx": {
+            "scaleInDock": 1
+        },
+        "routes/r102.json": {
+            "scale": 0.25,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 1348,
+                "y": 272
+            }
+        },
+        "routes/r103.json": {
+            "expandedObjectLayers": [
+                8
+            ],
+            "scale": 0.33,
+            "selectedLayer": 7,
+            "viewCenter": {
+                "x": 637.8787878787879,
+                "y": 401.5151515151516
+            }
+        },
+        "sans titre.tmx": {
+            "scale": 0.9767187499999999,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 570.276755719085,
+                "y": 320.9726443768998
+            }
+        },
+        "test.json": {
+            "scale": 0.890625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 471.57894736842104,
+                "y": 969.5438596491226
+            }
+        },
+        "test_.json": {
+            "scale": 0.890625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 479.99999999999994,
+                "y": 320.5614035087719
+            }
+        }
+    },
+    "last.exportedFilePath": "C:/Users/Karima Meziane/Desktop/PyGemon/data/maps/routes",
+    "map.height": 25,
+    "map.lastUsedExportFilter": "Fichiers de carte JSON (*.tmj *.json)",
+    "map.lastUsedFormat": "json",
+    "map.width": 25,
+    "openFiles": [
+        "test.json",
+        "routes/r103.json",
+        "routes/r102.json"
+    ],
+    "project": "sans titre.tiled-project",
+    "property.type": "string",
+    "recentFiles": [
+        "test.json",
+        "routes/r103.json",
+        "routes/r102.json",
+        "test_.json",
+        "sans titre.tmx"
+    ]
+}
