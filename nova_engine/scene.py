@@ -2,6 +2,10 @@ import pygame, json, random
 from nova_engine.events import SCENESWITCH, TRANSITIONEND
 
 NEIGHBOORS_OFFSET = [(0,0), (0,1), (0,-1), (1,0), (1,-1), (1,1), (-1,0), (-1,1), (-1,-1)]
+FLIPPED_HORIZONTALLY_FLAG = 0x80000000
+FLIPPED_VERTICALLY_FLAG = 0x40000000
+FLIPPED_DIAGONALLY_FLAG = 0x20000000
+ROTATED_HEXAGONAL_120_FLAG = 0x10000000
 
 class Tile:
     def __init__(self, pos, id):
@@ -21,7 +25,11 @@ class Tile:
         pass
 
     def render(self, tilemap):
-        tilemap.game.render(tilemap.tileset[self.id], [self.pos[0] * tilemap.tile_size, self.pos[1] * tilemap.tile_size])
+        global_tile_id = self.id
+        flipped_horizontally = bool(global_tile_id & FLIPPED_HORIZONTALLY_FLAG)
+        flipped_vertically = bool(global_tile_id & FLIPPED_VERTICALLY_FLAG)
+        global_tile_id &= ~(FLIPPED_HORIZONTALLY_FLAG | FLIPPED_VERTICALLY_FLAG )
+        tilemap.game.render(pygame.transform.flip(tilemap.tileset[global_tile_id], flipped_horizontally, flipped_vertically), [self.pos[0] * tilemap.tile_size, self.pos[1] * tilemap.tile_size])
 
     def rect(self, rect, tile_size):
         return pygame.Rect(self.pos[0] * tile_size + rect.x, self.pos[1] * tile_size + rect.y,  rect.w, rect.h)
@@ -118,7 +126,7 @@ class Scene:
                     object.updated = True
             else:
                 layer = self.layers_z_pos[z_pos_]
-                if not self._layer_names[layer] in self.INVISIBLE_LAYERS:
+                if not layer in self.INVISIBLE_LAYERS:
                     for loc in generate_screen_positions(int(self.tile_size), (int(self.game.camera[0]), int(self.game.camera[1])), self.game.screen.get_size()):
                         if loc in self.layers[self._layer_names[layer]]:
                             tile = self.layers[self._layer_names[layer]][loc]
@@ -130,9 +138,42 @@ class Scene:
             self.layers[i] = dict(filter(lambda item: not item[1].kill, self.layers[i].items()))
 
         self.attached_objects = list(filter(lambda x: not x.erased, self.attached_objects))
+
+        for object in self.attached_objects:
+            if object.is_player:
+                player = object
+
+        if self.transition != None:
+            if self.transition_timer > 0:
+                if self.transition(self.game, self.transition_timer, self.transition_ceil) == 1:
+                    if self.transition_data != None:
+                        self.game.scenes.switch_scene(self.transition_data[0])
+                        player.pos = self.transition_data[1]
+                        for i in range(200): self.game.scroll(player.rect().center, False, 15)
+                        pl = False
+                        for object in self.game.scenes[self.transition_data[0]].attached_objects:
+                            if object.is_player:
+                                pl = True
+                        if not pl:
+                            self.game.scenes.attach(self.transition_data[0], player)
+                        self.transition_data = None
+
+        if self.transition_data != None and self.transition == None:
+            self.transition_timer = 0.01
+            self.game.scenes.switch_scene(self.transition_data[0])
+            player.pos = self.transition_data[1]
+            for i in range(200): self.game.scroll(player.rect().center, False, 15)
+            pl = False
+            for object in self.game.scenes[self.transition_data[0]].attached_objects:
+                if object.is_player:
+                    pl = True
+            if not pl:
+                self.game.scenes.attach(self.transition_data[0], player)
+            self.transition_data = None
     
         
-        
+    def get_map_size(self):
+        return self.size
     
     def tiles_around(self, pos, layer):
         tiles = []
@@ -162,75 +203,7 @@ class Scene:
         return rects
     
     def handle_transitions(self, scroll_power=100):
-        for object in self.attached_objects:
-            if object.is_player:
-                player = object
-
-        if self.transition != None:
-            if self.transition_timer > 0:
-                if self.transition(self.game, self.transition_timer, self.transition_ceil) == 1:
-                    if self.transition_data != None:
-                        self.game.scenes.switch_scene(self.transition_data[0])
-                        player.pos = self.transition_data[1]
-                        for i in range(scroll_power): self.game.scroll(player.rect().center, False, 15)
-                        pl = False
-                        for object in self.game.scenes[self.transition_data[0]].attached_objects:
-                            if object.is_player:
-                                pl = True
-                        if not pl:
-                            self.game.scenes.attach(self.transition_data[0], player)
-                        self.transition_data = None
-
-
-        if self.transition_data != None and self.transition == None:
-            self.transition_timer = 0.01
-            self.game.scenes.switch_scene(self.transition_data[0])
-            player.pos = self.transition_data[1]
-            for i in range(scroll_power): self.game.scroll(player.rect().center, False, 15)
-            pl = False
-            for object in self.game.scenes[self.transition_data[0]].attached_objects:
-                if object.is_player:
-                    pl = True
-            if not pl:
-                self.game.scenes.attach(self.transition_data[0], player)
-            self.transition_data = None
-
-        if len(self.left) != 0:
-            if player.rect().right < 0:
-                if len(self.left) == 3:
-                    self.transition_data = [self.left['scene'], [self.game.scenes[self.left['scene']].size[0] * self.tile_size - player.offset[1], self.left['location'] * self.tile_size - player.offset[0]]]
-                else:
-                    self.transition_data = [self.left['scene'], [self.game.scenes[self.left['scene']].size[0] * self.tile_size - player.offset[1], player.pos[1]]]     
-                if self.transition_timer == 0:
-                    self.transition_timer = 0.01
-                
-                    
-        if len(self.right) != 0:
-            if player.rect().left > self.size[0] * self.tile_size:
-                if len(self.right) == 3:
-                    self.transition_data = [self.right['scene'], [player.rect().w - player.offset[1], self.right['location'] * self.tile_size  - player.offset[0]]]
-                else:
-                    self.transition_data = [self.right['scene'], [player.rect().w - player.offset[1], player.pos[1]]]    
-                if self.transition_timer == 0:
-                    self.transition_timer = 0.01
-                   
-        if len(self.up) != 0:
-            if player.rect().bottom < 0:
-                if len(self.up) == 3:
-                    self.transition_data = [self.up['scene'], [self.up['location'] * self.tile_size  - player.offset[0], self.game.scenes[self.up['scene']].size[1] * self.tile_size - player.offset[1]]]
-                else:
-                    self.transition_data = [self.up['scene'], [player.pos[0],  self.game.scenes[self.up['scene']].size[1] * self.tile_size - player.offset[1]]] 
-                if self.transition_timer == 0:
-                    self.transition_timer = 0.01
-                 
-        if len(self.down) != 0:
-            if player.rect().top > self.size[1] * self.tile_size:
-                if len(self.down) == 3:
-                    self.transition_data = [self.down['scene'], [self.down['location'] * self.tile_size - player.offset[0], -player.rect().h - player.offset[1]]]
-                else:
-                    self.transition_data = [self.down['scene'], [player.pos[0],  -player.rect().h - player.offset[1]]] 
-                if self.transition_timer == 0:
-                    self.transition_timer = 0.01
+        pass
     
     def transition_into(self, scene):
         self.transition_data = [scene, self.game.player.pos]

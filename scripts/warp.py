@@ -1,6 +1,7 @@
 import nova_engine as nova, pygame
 
 from scripts.text import *
+from scripts.player import *
 
 #Object qui s'active quand le joueur marche dessus et appuye sur espace (utile par ex pour les panneaux)
 class Warp(nova.Object):

@@ -19,7 +19,7 @@ class Player(nova.Entity, nova.Animated):
         self.game.scene.attach(Shadow(self.game, self))
 
     def update(self):
-        self.z_pos = (0.4/(self.game.scene.get_size()[1]*self.game.scene.get_tile_size()))*self.rect().bottom + 1.8 #Place la position z du joueur en fonction de sa position y (pour que si il est au dessus d'un pnj, il soit dessiné correctement)
+        self.z_pos = (0.4/(self.game.scene.get_size()[1]*self.game.scene.get_tile_size()))*self.rect().bottom + 1.8
         nova.Entity.update(self)
         self.stop = False
         keys = pygame.key.get_pressed()
@@ -63,4 +63,18 @@ class Player(nova.Entity, nova.Animated):
         if self.game.DEBUG:
             self.debug_rect((255,0,0))
         super().render()
+
+def player_switch_scene(game, scene, dir):
+    transition_data = [scene]
+    if dir == "left":
+        transition_data.append([game.scenes[scene].get_map_size()[0] * game.scene.get_tile_size() - game.player.rect().w, game.player.pos[1]])
+    if dir == "right":
+        transition_data.append([-game.player.rect().w, game.player.pos[1]])
+    if dir == "down":
+        transition_data.append([game.player.pos[0], -game.player.rect().h])
+    if dir == "up":
+        transition_data.append([game.player.pos[0], game.scenes[scene].get_map_size()[1] * game.scene.get_tile_size() - 2*game.player.rect().h])
+    game.scene.transition_data = transition_data
+    game.scene.transition_timer = 0.01
+
 

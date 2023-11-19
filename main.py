@@ -11,7 +11,6 @@ from scripts.npc import *
 from scripts.text import *
 from scripts.warp import *
 from scripts.objects import *
-from scripts.path import *
 
 game = nova.GameContext((480, 360), vsync=True, flags = pygame.SCALED | pygame.RESIZABLE)
 game.DEBUG = False
@@ -33,13 +32,9 @@ def init():
     game.load_font("data/fonts/main.ttf", "main", 32)
     game.load_font("data/fonts/main.ttf", "main", 40)
 
-
-    for scene in game.scenes:
-        scene.change_tile_type(Path, [464, 465, 466, 472, 473, 474, 480, 481, 482])
-
-    game.switch_scene('route_102')
+    game.switch_scene('route_101')
     scene_links()
-    print(game.scene.attached_objects)
+    for i in range(150): game.scroll(game.player.rect().center, game.DEBUG, 15)
 
 def events():
     global tr, c
@@ -51,22 +46,17 @@ def events():
             c += event.unicode
             if event.key == pygame.K_F11:
                 game.toggle_fullscreen()
-            
-            #code qui gère les cheat codes
             if event.key == pygame.K_LSHIFT:
                 if c == "debugmode":
                     game.DEBUG = not game.DEBUG
                 elif c.split(" ")[0] == "tp":
                     game.player.pos = [float(c.split(" ")[1]) * game.scene.get_tile_size(), float(c.split(" ")[2]) * game.scene.get_tile_size()]
                 c = ""
-
         if event.type == nova.SCENESWITCH:
             for object in game.scenes[event.scene].attached_objects:
                 if "npc" in object.tags:
-                    #On remet tous les pnjs à leur place de base par changement de map
                     object.pos = object.spawn.copy()
 
-#Affichage du debug mode
 def debug_mode():
     game.render_text(str(round(game.get_fps())), "main30", (30,30,30), (5,-2), True)
     game.render_text("DEBUG MODE", "main30", (30,30,30), (5,335), True)
@@ -75,11 +65,11 @@ def debug_mode():
 def loop():
     global tr
     events()
-    game.scene.set_transition_mode(nova.fade_transition, time=0)
+    game.scene.set_transition_mode(nova.fade_transition, time=1)
     game.scene.render()
     game.set_caption("PyGamon Emerald")
-    game.scroll(game.player.rect().center, False, 15)
-    game.scene.handle_transitions()
+    game
+    game.scroll(game.player.rect().center, game.DEBUG, 15)
     game.render_text("", "main30", (0,0,0), (195, 303))
     if game.DEBUG:
         debug_mode()

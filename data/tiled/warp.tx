@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+ <object width="32.142" height="31.9716">
+  <properties>
+   <property name="action" value="player_switch_scene(game"/>
+   <property name="condition" value="True"/>
+   <property name="direct" type="bool" value="false"/>
+   <property name="type" value="warp"/>
+   <property name="volatile" type="bool" value="false"/>
+  </properties>
+ </object>
+</template>
