@@ -4,8 +4,6 @@ from nova_engine.events import SCENESWITCH, TRANSITIONEND
 NEIGHBOORS_OFFSET = [(0,0), (0,1), (0,-1), (1,0), (1,-1), (1,1), (-1,0), (-1,1), (-1,-1)]
 FLIPPED_HORIZONTALLY_FLAG = 0x80000000
 FLIPPED_VERTICALLY_FLAG = 0x40000000
-FLIPPED_DIAGONALLY_FLAG = 0x20000000
-ROTATED_HEXAGONAL_120_FLAG = 0x10000000
 
 class Tile:
     def __init__(self, pos, id):
@@ -247,6 +245,8 @@ class Scenes:
             self.scenes[scene_name].name = scene_name
             if 'background_color' in scene_data:
                 self.scenes[scene_name].color = scene_data['background_color']
+            if 'force_scroll' in scene_data:
+                self.scenes[scene_name].force_scroll = bool(scene_data['force_scroll'])
             if 'map_filepath' in scene_data:
                 map = load_map(scene_data['map_filepath'])
                 self.scenes[scene_name].is_map = True

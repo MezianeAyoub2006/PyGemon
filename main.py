@@ -23,16 +23,13 @@ def scene_links():
 from scripts.res import *
 
 def init():
-    game.load_assets(TILESETS | PLAYER_SPRITES)
-    game.load_scenes(SCENES)
-
-    game.player = Player(game, [10, 10])
-
     game.load_font("data/fonts/main.ttf", "main", 30)
     game.load_font("data/fonts/main.ttf", "main", 32)
     game.load_font("data/fonts/main.ttf", "main", 40)
-
-    game.switch_scene('route_101')
+    game.load_assets(TILESETS | PLAYER_SPRITES)
+    game.load_scenes(SCENES)
+    game.player = Player(game, [10, 10])
+    game.switch_scene('bourg_en_vol')
     scene_links()
     for i in range(150): game.scroll(game.player.rect().center, game.DEBUG, 15)
 
@@ -69,12 +66,10 @@ def loop():
     game.scene.render()
     game.set_caption("PyGamon Emerald")
     game
-    game.scroll(game.player.rect().center, game.DEBUG, 15)
+    game.scroll(game.player.rect().center, game.DEBUG or game.scene.force_scroll, 15)
     game.render_text("", "main30", (0,0,0), (195, 303))
     if game.DEBUG:
         debug_mode()
 
 init()
 game.run(loop)
-
-

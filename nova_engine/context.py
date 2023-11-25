@@ -33,6 +33,13 @@ class GameContext:
         self.load_sysfont("Arial", 50)
         self.load_sysfont("Arial", 60)
 
+        s = self.render_text("Chargement", 'Arial20', (255,255,255), (0, 0), antialias=True)
+        pygame.draw.rect(self.screen, (0,0,0), pygame.Rect((0,0),self.screen.get_size()))
+        rect = pygame.Rect(0, 0, s.get_size()[0], s.get_size()[1])
+        rect.center = (self.screen.get_size()[0]/2, self.screen.get_size()[1]/2)
+        self.render_text("Chargement", 'Arial20', (255,255,255), rect.topleft, antialias=True)
+        pygame.display.flip()
+
         self.load_font(__file__[:-10]+"nova.otf", "nova", 40)
 
         self.scrollx = True
@@ -186,6 +193,7 @@ class GameContext:
     def render_text(self, text, font, color=(0,0,0), position=(15, 15), antialias=True):
         font = self.fonts[font]
         self.screen.blit(font.render(text, antialias, color), position)
+        return font.render(text, antialias, color)
 
 class ShaderScreen(pygame.Surface):
     def __init__(self, size, shaders):

@@ -404,14 +404,14 @@
                  "y":640
                 }, 
                 {
-                 "height":193.583333333333,
+                 "height":3.9867424242421,
                  "id":5,
                  "name":"",
                  "properties":[
                         {
                          "name":"action",
                          "type":"string",
-                         "value":"player_switch_scene(self.game, \"route_102\", \"left\")"
+                         "value":"player_switch_scene(self.game, \"myhouse\", \"spawn\", spawn = (144*2, 134*2))"
                         }, 
                         {
                          "name":"condition",
@@ -421,7 +421,7 @@
                         {
                          "name":"direct",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }, 
                         {
                          "name":"type",
@@ -436,9 +436,9 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":4.75,
-                 "x":-22.389532443549,
-                 "y":286.946854276841
+                 "width":23.78125,
+                 "x":164.086793314027,
+                 "y":287.982839125326
                 }, 
                 {
                  "height":4.5,
@@ -476,6 +476,43 @@
                  "width":179.75,
                  "x":259.083333333333,
                  "y":-15.9583333333333
+                }, 
+                {
+                 "height":193.583,
+                 "id":12,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"action",
+                         "type":"string",
+                         "value":"player_switch_scene(self.game, \"route_102\", \"left\")"
+                        }, 
+                        {
+                         "name":"condition",
+                         "type":"string",
+                         "value":"True"
+                        }, 
+                        {
+                         "name":"direct",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"warp"
+                        }, 
+                        {
+                         "name":"volatile",
+                         "type":"bool",
+                         "value":false
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":4.75,
+                 "x":-21.0416666666667,
+                 "y":227.2085
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -484,7 +521,7 @@
          "y":0
         }],
  "nextlayerid":10,
- "nextobjectid":9,
+ "nextobjectid":13,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.1",

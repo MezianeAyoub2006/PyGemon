@@ -7,7 +7,8 @@ import nova_engine as nova, pygame
 nova.IMG_PATH('data/images/')
 
 TILESETS = {
-    'main_tileset' : nova.load_sprite('tilesets/main.png', (32, 32))
+    'main_tileset' : nova.load_sprite('tilesets/main.png', (32, 32)),
+    'indoor_tileset' : nova.scale_image_list(nova.load_sprite('tilesets/interior.png', (16, 16)), (32, 32))
 }
 
 PLAYER_SPRITES = {

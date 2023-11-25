@@ -1,0 +1,140 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "routes/r102.json",
+    "expandedProjectPaths": [
+    ],
+    "file.lastUsedOpenFilter": "Tous les Fichiers (*)",
+    "fileStates": {
+        "C:/../../Pictures/Tileset for pokemon/main.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Karima Meziane/Desktop/C & C++/Raylib/main.tsx": {
+            "scaleInDock": 0.75
+        },
+        "C:/Users/Karima Meziane/Desktop/PyGemon/data/tiled/interior.tsx": {
+            "scaleInDock": 3,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Karima Meziane/Documents/tileset.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Karima Meziane/Downloads/foret_clementi.json": {
+            "scale": 0.4102272727272727,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 767.8670360110805,
+                "y": 637.4515235457066
+            }
+        },
+        "C:/Users/Karima Meziane/Downloads/route_101.json": {
+            "expandedObjectLayers": [
+                8
+            ],
+            "scale": 1,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 200.5,
+                "y": 474.5
+            }
+        },
+        "C:/Users/Pictures/Tileset for pokemon/main.tsx": {
+            "scaleInDock": 1
+        },
+        "routes/r102.json": {
+            "expandedObjectLayers": [
+                2
+            ],
+            "scale": 0.015625,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": -6368,
+                "y": 13728
+            }
+        },
+        "routes/r103.json": {
+            "expandedObjectLayers": [
+                8
+            ],
+            "scale": 0.33,
+            "selectedLayer": 7,
+            "viewCenter": {
+                "x": 637.8787878787879,
+                "y": 401.5151515151516
+            }
+        },
+        "routes/tileset.tsx": {
+            "scaleInDock": 8,
+            "scaleInEditor": 4
+        },
+        "sans titre.tmx": {
+            "scale": 0.9767187499999999,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 570.276755719085,
+                "y": 320.9726443768998
+            }
+        },
+        "test.json": {
+            "scale": 0.890625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 471.57894736842104,
+                "y": 969.5438596491226
+            }
+        },
+        "test_.json": {
+            "scale": 0.890625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 479.99999999999994,
+                "y": 320.5614035087719
+            }
+        },
+        "villes/bourg-en-vol.json": {
+            "expandedObjectLayers": [
+                8
+            ],
+            "scale": 4,
+            "selectedLayer": 8,
+            "viewCenter": {
+                "x": 398,
+                "y": 508.875
+            }
+        }
+    },
+    "last.exportedFilePath": "C:/Users/Karima Meziane/Desktop/PyGemon/data/maps/intérieur",
+    "last.imagePath": "C:/Users/Karima Meziane/Desktop/Nova Engine Reborn",
+    "map.height": 9,
+    "map.lastUsedExportFilter": "Fichiers de carte JSON (*.tmj *.json)",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 11,
+    "openFiles": [
+        "villes/bourg-en-vol.json",
+        "routes/r102.json",
+        "routes/tileset.tsx"
+    ],
+    "project": "",
+    "recentFiles": [
+        "villes/bourg-en-vol.json",
+        "routes/tileset.tsx",
+        "routes/r102.json",
+        "C:/Users/Karima Meziane/Downloads/route_101.json",
+        "C:/Users/Karima Meziane/Desktop/PyGemon/data/tiled/interior.tsx",
+        "C:/Users/Karima Meziane/Documents/tileset.tsx",
+        "C:/Users/Karima Meziane/Downloads/foret_clementi.json",
+        "routes/r103.json",
+        "test.json",
+        "test_.json",
+        "sans titre.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}

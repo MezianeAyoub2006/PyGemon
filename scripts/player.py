@@ -64,7 +64,7 @@ class Player(nova.Entity, nova.Animated):
             self.debug_rect((255,0,0))
         super().render()
 
-def player_switch_scene(game, scene, dir):
+def player_switch_scene(game, scene, dir, spawn=None):
     transition_data = [scene]
     if dir == "left":
         transition_data.append([game.scenes[scene].get_map_size()[0] * game.scene.get_tile_size() - game.player.rect().w, game.player.pos[1]])
@@ -74,6 +74,8 @@ def player_switch_scene(game, scene, dir):
         transition_data.append([game.player.pos[0], -game.player.rect().h])
     if dir == "up":
         transition_data.append([game.player.pos[0], game.scenes[scene].get_map_size()[1] * game.scene.get_tile_size() - 2*game.player.rect().h])
+    if dir == "spawn":
+        transition_data.append([spawn[0] - game.player.rect().w/2, spawn[1] - game.player.rect().h/2])
     game.scene.transition_data = transition_data
     game.scene.transition_timer = 0.01
 
